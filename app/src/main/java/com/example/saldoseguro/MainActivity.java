@@ -24,4 +24,10 @@ public class MainActivity extends AppCompatActivity {
         Intent create_account_intent = new Intent(this, create_account.class);
         startActivity(create_account_intent);
     }
+
+    //metod to go to the main screen
+    public  void  mainScreen(View view){
+        Intent createMainScreen = new Intent(this, pantalla_principal.class);
+        startActivity(createMainScreen);
+    }
 }

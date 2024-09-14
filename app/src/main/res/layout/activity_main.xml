@@ -54,6 +54,7 @@
         android:layout_width="314dp"
         android:layout_height="55dp"
         android:backgroundTint="@color/colorAccent"
+        android:onClick="mainScreen"
         android:padding="12dp"
         android:text="Iniciar Sesión"
         android:textColor="@android:color/white"
