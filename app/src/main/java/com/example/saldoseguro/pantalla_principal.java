@@ -18,5 +18,8 @@ public class pantalla_principal extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_principal);
     }
 
-
+    public void Agregar_Quitar_Gasto(View view){
+        Intent agregarQuitarGasto = new Intent(this, agregar_gasto_ingreso.class);
+        startActivity(agregarQuitarGasto);
+    }
 }
