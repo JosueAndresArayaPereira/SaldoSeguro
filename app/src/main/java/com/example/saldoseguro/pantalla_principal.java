@@ -22,4 +22,13 @@ public class pantalla_principal extends AppCompatActivity {
         Intent agregarQuitarGasto = new Intent(this, agregar_gasto_ingreso.class);
         startActivity(agregarQuitarGasto);
     }
+    public void VerMovimientos(View view){
+        Intent verMovimientoIntent = new Intent(this, historial_movimientos.class);
+        startActivity(verMovimientoIntent);
+    }
+
+    public  void Configuracion(View view){
+        Intent configuracionIntent = new Intent(this, configuracion.class);
+        startActivity(configuracionIntent);
+    }
 }

@@ -13,6 +13,15 @@
         android:theme="@style/Theme.SaldoSeguro"
         tools:targetApi="31">
         <activity
+            android:name=".cuenta_crear_modificar"
+            android:exported="false" />
+        <activity
+            android:name=".configuracion"
+            android:exported="false" />
+        <activity
+            android:name=".historial_movimientos"
+            android:exported="false" />
+        <activity
             android:name=".agregar_gasto_ingreso"
             android:exported="false" />
         <activity
