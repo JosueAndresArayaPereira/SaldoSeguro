@@ -22,4 +22,8 @@ public class configuracion extends AppCompatActivity {
         Intent intentoVentanaCrearModificarCuenta = new Intent(this, cuenta_crear_modificar.class);
         startActivity(intentoVentanaCrearModificarCuenta);
     }
+    public void categoriasVista(View view){
+        Intent intentoCategorias = new Intent(this, Categorias.class);
+        startActivity(intentoCategorias);
+    }
 }
