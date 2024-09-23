@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SaldoSeguro"
         tools:targetApi="31">
         <activity
+            android:name=".Categorias"
+            android:exported="false" />
+        <activity
             android:name=".cuenta_crear_modificar"
             android:exported="false" />
         <activity

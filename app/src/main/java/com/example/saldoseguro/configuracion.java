@@ -1,6 +1,8 @@
 package com.example.saldoseguro;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,5 +16,10 @@ public class configuracion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion);
+    }
+
+    public void crear_modificar_cuenta(View view){
+        Intent intentoVentanaCrearModificarCuenta = new Intent(this, cuenta_crear_modificar.class);
+        startActivity(intentoVentanaCrearModificarCuenta);
     }
 }
