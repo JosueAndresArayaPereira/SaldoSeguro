@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextNombreCuenta" />
 
     <Button
-        android:id="@+id/buttonSignUp"
+        android:id="@+id/buttonCrearCuenta"
         android:layout_width="314dp"
         android:layout_height="55dp"
         android:layout_marginTop="8dp"
