@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "162372034773",
+    "firebase_url": "https://saldo-seguro-babbd-default-rtdb.firebaseio.com",
+    "project_id": "saldo-seguro-babbd",
+    "storage_bucket": "saldo-seguro-babbd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162372034773:android:753bc52b44f3e5298b425c",
+        "android_client_info": {
+          "package_name": "com.example.saldoseguro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATgpne-UnXDSXUy2IazI4VQyLgi6WBkkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
