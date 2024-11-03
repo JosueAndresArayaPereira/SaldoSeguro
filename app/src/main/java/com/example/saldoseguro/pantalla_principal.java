@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class pantalla_principal extends AppCompatActivity {
 
@@ -24,7 +29,13 @@ public class pantalla_principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
 
-        obtenerCuentas();
+        obtenerCuentas(findViewById(R.id.textView2));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        obtenerCuentas(findViewById(R.id.textView2));
     }
 
     public void Agregar_Quitar_Gasto(View view){
@@ -40,8 +51,8 @@ public class pantalla_principal extends AppCompatActivity {
         Intent configuracionIntent = new Intent(this, configuracion.class);
         startActivity(configuracionIntent);
     }
-
-    public void obtenerCuentas(){
+    public void obtenerCuentas(TextView textViewDineroGeneral) {
+        final int[] dineroGeneral = {0};
         dbHelper = new DataBaseHelper(this);
         String user = dbHelper.obtenerSesion();
         db.collection("cuentas")
@@ -49,12 +60,50 @@ public class pantalla_principal extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        LinearLayout linearLayoutCuentas = findViewById(R.id.linearLayoutCuentas);
+                        linearLayoutCuentas.removeAllViews(); // Limpiar antes de agregar
+
+                        // Contador para verificar si hay cuentas
+                        boolean hayCuentas = false;
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d("cuentas", document.getId() + " => " + document.getData());
+                            hayCuentas = true; // Si hay al menos una cuenta, cambia a true
+                            String nombreCuenta = document.getString("nombre"); // Campo "nombre"
+                            int saldoCuenta = document.getLong("Saldo").intValue(); // Campo "saldo"
+
+                            dineroGeneral[0] += saldoCuenta;
+
+                            // Inflar el layout para la cuenta
+                            View cuentaView = getLayoutInflater().inflate(R.layout.layout_cuenta, linearLayoutCuentas, false);
+
+                            // Obtener referencias a los TextViews y establecer el texto
+                            TextView textViewNombre = cuentaView.findViewById(R.id.textViewNombreCuenta);
+                            TextView textViewSaldo = cuentaView.findViewById(R.id.textViewSaldoCuenta);
+
+                            textViewNombre.setText(nombreCuenta);
+                            // Usar el método formatearDinero para mostrar el saldo formateado
+                            textViewSaldo.setText(formatearDinero(saldoCuenta));
+
+                            // Agregar la vista de la cuenta al LinearLayout
+                            linearLayoutCuentas.addView(cuentaView);
+                        }
+
+                        // Actualizar el TextView con el total de dinero general, formateado
+                        textViewDineroGeneral.setText(formatearDinero(dineroGeneral[0]));
+
+                        // Si no hay cuentas, podrías mostrar un mensaje o manejarlo de otra manera
+                        if (!hayCuentas) {
+                            // Puedes mostrar un TextView que diga que no hay cuentas disponibles
                         }
                     } else {
                         Log.d("cuentas", "Error getting documents: ", task.getException());
                     }
                 });
+    }
+
+    // Método para formatear el dinero
+    public String formatearDinero(int dinero) {
+        NumberFormat formato = NumberFormat.getInstance(Locale.forLanguageTag("es-CL"));
+        return "$" + formato.format(dinero); // Agregar el símbolo de peso
     }
 }

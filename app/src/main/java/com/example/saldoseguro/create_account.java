@@ -68,7 +68,7 @@ public class create_account extends AppCompatActivity {
     public void crearCuentaEfectivo(String userID){
 
         Map<String, Object> cuenta = new HashMap<>();
-        cuenta.put("nombre", "general");
+        cuenta.put("nombre", "efectivo");
         cuenta.put("Saldo", 0);
         cuenta.put("usuario", userID);
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="81dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="vertical"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/border_linear_layout"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textViewNombreCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la Cuenta" />
+
+    <TextView
+        android:id="@+id/textViewSaldoCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="$0.00" />
+</LinearLayout>

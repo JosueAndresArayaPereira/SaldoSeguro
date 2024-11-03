@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        verificarSesion();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
             login(username, password);
         });
 
-        verificarSesion();
+
 
     }
+
 
     private void verificarSesion() {
         dbHelper = new DataBaseHelper(this);
