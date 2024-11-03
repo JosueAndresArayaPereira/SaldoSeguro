@@ -43,7 +43,6 @@ public class create_account extends AppCompatActivity {
         });
     }
 
-    // Método para guardar datos
     public void guardarCuenta(String nombre, String email, String password) {
         Log.i("Datos", nombre + " " + email + " " + password);
 
@@ -57,11 +56,30 @@ public class create_account extends AppCompatActivity {
         db.collection("usuarios")
                 .add(usuario)
                 .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getApplicationContext(), "Cuenta creada con éxito", Toast.LENGTH_SHORT).show();
-                    finish(); // Cerrar la actividad o redirigir según sea necesario
+                    String userId = documentReference.getId(); // Obtener el ID del documento creado
+                    crearCuentaEfectivo(userId);
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getApplicationContext(), "Error al crear la cuenta :c", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+    public void crearCuentaEfectivo(String userID){
+
+        Map<String, Object> cuenta = new HashMap<>();
+        cuenta.put("nombre", "");
+        cuenta.put("Saldo", 0);
+        cuenta.put("usuario", userID);
+
+        db.collection("cuentas")
+                .add(cuenta)
+
+                .addOnSuccessListener(documentReference -> {
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+
                 });
     }
 }

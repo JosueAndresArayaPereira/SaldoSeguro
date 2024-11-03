@@ -26,4 +26,11 @@ public class configuracion extends AppCompatActivity {
         Intent intentoCategorias = new Intent(this, Categorias.class);
         startActivity(intentoCategorias);
     }
+
+    public void cerrarSesion(View view){
+        DataBaseHelper dbHelper = new DataBaseHelper(this);
+        dbHelper.cerrarSesion();
+        Intent intentoCerrarSesion = new Intent(this, MainActivity.class);
+        startActivity(intentoCerrarSesion);
+    }
 }

@@ -16,6 +16,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private  DataBaseHelper dbHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,20 @@ public class MainActivity extends AppCompatActivity {
             login(username, password);
         });
 
+        verificarSesion();
+
+    }
+
+    private void verificarSesion() {
+        dbHelper = new DataBaseHelper(this);
+        String user = dbHelper.obtenerSesion();
+        if (user != null) {
+            Intent createMainScreen = new Intent(this, pantalla_principal.class);
+            startActivity(createMainScreen);
+        }
+    }
+    private void guardarNuevaSesion(String user, String password, String idUsuario) {
+        dbHelper.agregarSesion(user, password, idUsuario);
     }
 
     //button create account
@@ -60,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                             String userID = document.getId();
                             if (userU.equals(nombre) && passwordU.equals(password)) {
                                 userFound = true;
+                                guardarNuevaSesion(nombre, password, userID);
                                 Intent createMainScreen = new Intent(this, pantalla_principal.class);
-                                createMainScreen.putExtra("USER_ID", userID);
                                 startActivity(createMainScreen);
                                 break;
                             }
