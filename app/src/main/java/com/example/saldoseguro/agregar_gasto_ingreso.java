@@ -17,7 +17,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -138,6 +140,10 @@ public class agregar_gasto_ingreso extends AppCompatActivity {
         String cuenta = spinnerCuenta.getSelectedItem().toString();
         String tipoMovimiento = spinnerIngresoGasto.getSelectedItem().toString();
 
+
+        //obtener la fecha actual
+        String fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+
         // Validar que el campo de cantidad no esté vacío
         String cantidadTexto = editTextCantidad.getText().toString().trim();
         if (cantidadTexto.isEmpty()) {
@@ -163,7 +169,8 @@ public class agregar_gasto_ingreso extends AppCompatActivity {
         movimiento.put("cuenta", cuenta);
         movimiento.put("tipoMovimiento", tipoMovimiento);
         movimiento.put("cantidad", cantidad);
-        movimiento.put("usuario", user); // Relacionar movimiento con usuario
+        movimiento.put("fecha", fecha);
+        movimiento.put("usuario", user);
 
         // Insertar el documento en Firestore en la colección "movimientos"
         db.collection("movimientos")
