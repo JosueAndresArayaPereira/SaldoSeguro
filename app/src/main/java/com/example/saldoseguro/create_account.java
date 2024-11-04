@@ -34,7 +34,6 @@ public class create_account extends AppCompatActivity {
             String email = emailTextV.getText().toString().trim();
             String password = passwordTextV.getText().toString().trim();
 
-            // Validación simple
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
             } else {

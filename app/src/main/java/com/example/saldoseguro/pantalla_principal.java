@@ -61,19 +61,18 @@ public class pantalla_principal extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         LinearLayout linearLayoutCuentas = findViewById(R.id.linearLayoutCuentas);
-                        linearLayoutCuentas.removeAllViews(); // Limpiar antes de agregar
+                        linearLayoutCuentas.removeAllViews();
 
                         // Contador para verificar si hay cuentas
                         boolean hayCuentas = false;
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             hayCuentas = true; // Si hay al menos una cuenta, cambia a true
-                            String nombreCuenta = document.getString("nombre"); // Campo "nombre"
-                            int saldoCuenta = document.getLong("Saldo").intValue(); // Campo "saldo"
+                            String nombreCuenta = document.getString("nombre");
+                            int saldoCuenta = document.getLong("Saldo").intValue();
 
                             dineroGeneral[0] += saldoCuenta;
 
-                            // Inflar el layout para la cuenta
                             View cuentaView = getLayoutInflater().inflate(R.layout.layout_cuenta, linearLayoutCuentas, false);
 
                             // Obtener referencias a los TextViews y establecer el texto
@@ -84,17 +83,12 @@ public class pantalla_principal extends AppCompatActivity {
                             // Usar el método formatearDinero para mostrar el saldo formateado
                             textViewSaldo.setText(formatearDinero(saldoCuenta));
 
-                            // Agregar la vista de la cuenta al LinearLayout
                             linearLayoutCuentas.addView(cuentaView);
                         }
 
                         // Actualizar el TextView con el total de dinero general, formateado
                         textViewDineroGeneral.setText(formatearDinero(dineroGeneral[0]));
 
-                        // Si no hay cuentas, podrías mostrar un mensaje o manejarlo de otra manera
-                        if (!hayCuentas) {
-                            // Puedes mostrar un TextView que diga que no hay cuentas disponibles
-                        }
                     } else {
                         Log.d("cuentas", "Error getting documents: ", task.getException());
                     }
@@ -104,6 +98,6 @@ public class pantalla_principal extends AppCompatActivity {
     // Método para formatear el dinero
     public String formatearDinero(int dinero) {
         NumberFormat formato = NumberFormat.getInstance(Locale.forLanguageTag("es-CL"));
-        return "$" + formato.format(dinero); // Agregar el símbolo de peso
+        return "$" + formato.format(dinero);
     }
 }
