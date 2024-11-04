@@ -25,6 +25,7 @@ public class agregar_gasto_ingreso extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DataBaseHelper dbHelper;
     private ArrayList<String> nombresCuentas = new ArrayList<>(); // Lista de nombres de cuentas
+    private ArrayList<String> nombresCategorias = new ArrayList<>(); // Lista de nombres de categorías
     private Spinner spinnerCategorias, spinnerCuenta, spinnerIngresoGasto;
     private EditText editTextCantidad;
     private Button buttonIngresar;
@@ -101,6 +102,34 @@ public class agregar_gasto_ingreso extends AppCompatActivity {
                             Log.d("cuentas", "Error getting documents: ", task.getException());
                         }
                     }
+                });
+
+        db.collection("categorias")
+                .whereEqualTo("usuario", user)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        nombresCategorias.clear(); // Limpiar lista de nombres de categorías
+                        if (task.getResult().isEmpty()) {
+                            Toast.makeText(this, "No hay categorías registradas", Toast.LENGTH_SHORT).show();
+                            nombresCategorias.add("general");
+                        }else{
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String nombreCategoria = document.getString("nombre");
+                                nombresCategorias.add(nombreCategoria);
+                            }
+                        }
+
+                    } else {
+                        Log.d("categorias", "Error getting documents: ", task.getException());
+                    }
+
+                    // Crear y asignar el adaptador del Spinner con la lista de nombres de categorías
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(agregar_gasto_ingreso.this,
+                            android.R.layout.simple_spinner_item, nombresCategorias);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerCategorias.setAdapter(adapter);
+
                 });
     }
     private void insertarMovimiento() {
